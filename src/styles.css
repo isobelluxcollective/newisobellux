@@ -1,0 +1,178 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Isobel's brand palette
+ * navy   #153D75  wordmark, headings, primary buttons, accents
+ * cream  #F8F0E6  primary background
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-navy: var(--brand-ink);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-taupe: var(--brand-taupe);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Brand */
+  --brand-cream: #f8f0e6;
+  --brand-ink: #153d75;
+  --brand-gold: #1e4f94;
+  --brand-taupe: #ede3d6;
+
+  /* Semantic mapping */
+  --background: var(--brand-cream);
+  --foreground: var(--brand-ink);
+  --card: #ffffff;
+  --card-foreground: var(--brand-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--brand-ink);
+  --primary: var(--brand-ink);
+  --primary-foreground: var(--brand-cream);
+  --secondary: var(--brand-taupe);
+  --secondary-foreground: var(--brand-ink);
+  --muted: var(--brand-taupe);
+  --muted-foreground: color-mix(in srgb, var(--brand-ink) 55%, transparent);
+  --accent: var(--brand-gold);
+  --accent-foreground: var(--brand-cream);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: color-mix(in srgb, var(--brand-ink) 14%, transparent);
+  --input: color-mix(in srgb, var(--brand-ink) 18%, transparent);
+  --ring: var(--brand-ink);
+}
+
+.dark {
+  --background: var(--brand-ink);
+  --foreground: var(--brand-cream);
+  --card: #0f2d56;
+  --card-foreground: var(--brand-cream);
+  --popover: #0f2d56;
+  --popover-foreground: var(--brand-cream);
+  --primary: var(--brand-cream);
+  --primary-foreground: var(--brand-ink);
+  --secondary: #0f2d56;
+  --secondary-foreground: var(--brand-cream);
+  --muted: #0f2d56;
+  --muted-foreground: color-mix(in srgb, var(--brand-cream) 70%, transparent);
+  --accent: var(--brand-cream);
+  --accent-foreground: var(--brand-ink);
+  --border: color-mix(in srgb, var(--brand-cream) 14%, transparent);
+  --input: color-mix(in srgb, var(--brand-cream) 18%, transparent);
+  --ring: var(--brand-cream);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .hero-bg-zoom {
+    animation: hero-bg-zoom 22s ease-out forwards;
+    will-change: transform;
+  }
+
+  .hero-fade-in {
+    animation: hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-fade-in-1 {
+    animation-delay: 0.05s;
+  }
+  .hero-fade-in-2 {
+    animation-delay: 0.18s;
+  }
+  .hero-fade-in-3 {
+    animation-delay: 0.3s;
+  }
+  .hero-fade-in-4 {
+    animation-delay: 0.42s;
+  }
+  .hero-fade-in-5 {
+    animation-delay: 0.55s;
+  }
+}
+
+@keyframes hero-bg-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-zoom,
+  .hero-fade-in {
+    animation: none !important;
+  }
+}
