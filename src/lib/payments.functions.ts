@@ -43,15 +43,19 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       userId?: string;
       returnUrl: string;
       environment: StripeEnv;
-      // Optional per-raffle ad-hoc pricing (one-time only).
-      // When provided, ignores the stored Stripe price and creates a price_data line item.
+      raffleId?: string;
+      checkoutMode?: "oneoff" | "subscription";
       adhocAmountPence?: number;
       adhocProductName?: string;
       adhocRaffleId?: string;
     }) => {
       if (!/^[a-zA-Z0-9_-]+$/.test(data.priceId)) throw new Error("Invalid priceId");
       if (data.adhocAmountPence !== undefined) {
-        if (!Number.isFinite(data.adhocAmountPence) || data.adhocAmountPence < 50 || data.adhocAmountPence > 1_000_000) {
+        if (
+          !Number.isFinite(data.adhocAmountPence) ||
+          data.adhocAmountPence < 50 ||
+          data.adhocAmountPence > 1_000_000
+        ) {
           throw new Error("Invalid amount");
         }
         if (!data.adhocProductName || data.adhocProductName.length > 200) {
@@ -60,6 +64,9 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         if (data.adhocRaffleId && !/^[a-zA-Z0-9_-]+$/.test(data.adhocRaffleId)) {
           throw new Error("Invalid raffleId");
         }
+      }
+      if (data.raffleId && !/^[0-9a-f-]{36}$/.test(data.raffleId)) {
+        throw new Error("Invalid raffleId");
       }
       return data;
     },
@@ -75,7 +82,6 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
           })
         : undefined;
 
-    // Ad-hoc one-time price branch — used for per-raffle single tickets
     if (data.adhocAmountPence !== undefined) {
       const session = await stripe.checkout.sessions.create({
         line_items: [
@@ -109,7 +115,6 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       return session.client_secret;
     }
 
-    // Stored price branch — subscriptions (or shared one-off prices)
     const prices = await stripe.prices.list({ lookup_keys: [data.priceId] });
     if (!prices.data.length) throw new Error("Price not found");
     const stripePrice = prices.data[0];
@@ -129,9 +134,17 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       ui_mode: "embedded_page",
       return_url: data.returnUrl,
       ...(customerId && { customer: customerId }),
-      ...(!isRecurring && { payment_intent_data: { description: productDescription } }),
+      ...(!isRecurring && {
+        payment_intent_data: {
+          description: productDescription,
+          ...(data.raffleId && { metadata: { raffleId: data.raffleId } }),
+        },
+      }),
       ...(data.userId && {
-        metadata: { userId: data.userId },
+        metadata: {
+          userId: data.userId,
+          ...(data.raffleId && !isRecurring && { raffleId: data.raffleId }),
+        },
         ...(isRecurring && { subscription_data: { metadata: { userId: data.userId } } }),
       }),
     });

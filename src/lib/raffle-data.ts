@@ -71,7 +71,7 @@ export const pastWinners: Winner[] = [
     drawDate: "March 2026",
     image: winner3,
     instagram: "@isa_styles",
-    quote: "Isobel's is the loveliest little community. The bag is just the start.",
+    quote: "Isobels is the loveliest little community. The bag is just the start.",
   },
   {
     id: "038",
@@ -94,7 +94,7 @@ export const subscriptionTiers = [
 
 export const postalAddress = {
   line1: "Free Postal Entry",
-  line2: "Isobel's Draws",
+  line2: "Isobels Luxe Collective",
   line3: "[Company Address]",
   line4: "[City]",
   line5: "[Postcode]",

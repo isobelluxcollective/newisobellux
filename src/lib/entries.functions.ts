@@ -109,6 +109,65 @@ export const enterDrawWithTickets = createServerFn({ method: "POST" })
     return result as { entry_id: string; new_balance: number; max_per_user: number };
   });
 
+export const allocateSubscriptionTickets = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { allocations: { raffleId: string; tickets: number }[] }) => {
+    const allocations = input.allocations.map((a) => ({
+      raffleId: uuid.parse(a.raffleId),
+      tickets: z.number().int().min(0).max(10000).parse(a.tickets),
+    }));
+    if (!allocations.some((a) => a.tickets > 0)) {
+      throw new Error("Allocate at least one ticket");
+    }
+    return { allocations };
+  })
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const total = data.allocations.reduce((sum, a) => sum + a.tickets, 0);
+
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("ticket_balance")
+      .eq("id", userId)
+      .maybeSingle();
+    if (profileError) throw new Error(profileError.message);
+
+    const balance = profile?.ticket_balance ?? 0;
+    if (total > balance) throw new Error("INSUFFICIENT_BALANCE");
+
+    const results: { raffleId: string; tickets: number }[] = [];
+    for (const allocation of data.allocations) {
+      if (allocation.tickets === 0) continue;
+      const { error } = await supabase.rpc("enter_draw_with_tickets", {
+        p_raffle_id: allocation.raffleId,
+        p_tickets: allocation.tickets,
+        p_source: "subscription",
+      });
+      if (error) {
+        const msg = error.message || "Unknown error";
+        if (msg.includes("TICKET_CAP_EXCEEDED")) {
+          const m = msg.match(/TICKET_CAP_EXCEEDED:(\d+)/);
+          throw new Error(`TICKET_CAP_EXCEEDED:${m?.[1] ?? ""}`);
+        }
+        if (msg.includes("INSUFFICIENT_BALANCE")) throw new Error("INSUFFICIENT_BALANCE");
+        if (msg.includes("RAFFLE_NOT_LIVE")) throw new Error("RAFFLE_NOT_LIVE");
+        throw new Error(msg);
+      }
+      results.push(allocation);
+    }
+
+    const { data: updated } = await supabase
+      .from("profiles")
+      .select("ticket_balance")
+      .eq("id", userId)
+      .maybeSingle();
+
+    return {
+      allocations: results,
+      new_balance: updated?.ticket_balance ?? 0,
+    };
+  });
+
 export const getSavedPaymentMethod = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { environment: StripeEnv }) => input)

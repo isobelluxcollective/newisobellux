@@ -4,16 +4,16 @@ import aboutCraft from "@/assets/about-craft.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Isobel's — Luxury Draws with a Conscience" },
+      { title: "About Isobels — Luxury Designer Draws" },
       {
         name: "description",
         content:
-          "Isobel's makes iconic designer pieces accessible through luxury draws, donating 5% of profits to charity.",
+          "Isobels makes iconic designer handbags and jewellery accessible through independently authenticated luxury draws, from £5.",
       },
-      { property: "og:title", content: "About Isobel's" },
+      { property: "og:title", content: "About Isobels" },
       {
         property: "og:description",
-        content: "Luxury draws with a conscience. 5% of profits to charity.",
+        content: "Luxury designer draws for women. Independently authenticated pieces from £5.",
       },
     ],
   }),
@@ -33,7 +33,7 @@ function AboutPage() {
             Luxury, <em>shared</em>.
           </h1>
           <p className="text-lg text-brand-ink/70 max-w-2xl mx-auto leading-relaxed italic font-serif">
-            "Some women are born knowing exactly what they want. Isobel's was one of them."
+            "Some women are born knowing exactly what they want. Isobel was one of them."
           </p>
         </div>
       </section>
@@ -50,28 +50,29 @@ function AboutPage() {
           />
           <div className="space-y-5 text-brand-ink/70 leading-relaxed text-base">
             <p>
-              Growing up, Isobel's had an eye for the extraordinary — the kind of pieces that
+              Growing up, Isobel had an eye for the extraordinary — the kind of pieces that
               stopped you in your tracks in a boutique window. The Hermès Kelly. The Chanel Classic
-              Flap. The Cartier Love Bracelet. She didn't just admire them. She understood them —
+              Flap. The Cartier Love Bracelet. She didn&apos;t just admire them. She understood them —
               the craft, the heritage, the meaning behind owning something built to outlast a
               lifetime.
             </p>
             <p>
               But like most women, she watched those pieces remain just out of reach. Not because
-              she didn't work hard enough. Not because she didn't deserve them. Simply because the
-              world of luxury had always been built for the few.
+              she didn&apos;t work hard enough. Not because she didn&apos;t deserve them. Simply because
+              the world of luxury had always been built for the few.
             </p>
             <p>
-              It was her husband who first said it out loud: what if we changed that?
+              Isobels exists to change that. Each draw sources a single, independently authenticated
+              luxury piece from the world&apos;s leading houses, then opens it up to everyone from £5
+              a ticket. One beautiful object. One winner. A real chance.
             </p>
             <p>
-              Together, they built Isobel's — not just a business, but a belief. That the most
-              beautiful things in the world shouldn't be reserved for the wealthiest handful. That
-              every woman who has ever pressed her face to a boutique window and walked away
-              deserves a real chance.
+              Every entry carries a unique, verifiable number. Every draw is independently overseen.
+              And every draw includes a free postal entry route, because no one should be locked
+              out of the chance to win.
             </p>
             <p>
-              Isobel's is the face and heart of everything we do. You'll find her introducing every
+              Isobel is the face and heart of everything we do. You&apos;ll find her introducing every
               draw on our social media — sharing the story of each piece, where it came from, why
               it matters, and why you should have a chance to own it.
             </p>
@@ -79,7 +80,7 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Section 2 — How Isobel's Works */}
+      {/* Section 2 — How Isobels Works */}
       <section id="how-it-works" className="py-24 bg-brand-ink text-brand-cream scroll-mt-20">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="max-w-3xl mx-auto text-center">
@@ -91,7 +92,7 @@ function AboutPage() {
             </h2>
             <div className="space-y-5 text-base text-brand-cream/70 leading-relaxed text-left md:text-center">
               <p>
-                Isobel's is a prize draw company. We source a single, exceptional luxury item —
+                Isobels is a prize draw company. We source a single, exceptional luxury item —
                 authenticated, pristine, and hand-selected from the world's leading houses. We
                 open a draw. Members enter using tickets. One winner is chosen at random, verified
                 independently, and the prize is theirs.
@@ -123,8 +124,8 @@ function AboutPage() {
                 d: "Single prize, single winner, one draw at a time. Every entry assigned a verifiable number.",
               },
               {
-                t: "Generous",
-                d: "5% of all profits donated. A free postal entry route, by law and by principle.",
+                t: "Fair",
+                d: "A free postal entry route on every draw, by law and by principle. No purchase necessary.",
               },
             ].map((v) => (
               <div key={v.t} className="space-y-3">
@@ -136,38 +137,8 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Section 3 — Charity */}
+      {/* Section 3 — Winners */}
       <section className="py-24 bg-brand-cream">
-        <div className="container mx-auto px-6 max-w-3xl text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-6">
-            Giving Back
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl italic text-brand-ink mb-8">
-            5% of every profit, to charity.
-          </h2>
-          <div className="space-y-5 text-base text-brand-ink/70 leading-relaxed">
-            <p>
-              Five percent of every draw's profits goes directly to a charitable partner — not as
-              an afterthought, but as a commitment built into how we operate from day one.
-            </p>
-            <p>
-              We choose our partners carefully. We look for organisations doing quiet, meaningful
-              work that changes lives consistently. Before each season we introduce our partner,
-              tell their story, and show exactly where your contribution goes.
-            </p>
-            <p>
-              We don't believe in vague promises. When we say 5% goes to charity, we mean it — and
-              we'll show you the numbers.
-            </p>
-          </div>
-          <p className="text-[11px] uppercase tracking-[0.3em] text-brand-ink/40 mt-12">
-            Charity partner · announcing soon
-          </p>
-        </div>
-      </section>
-
-      {/* Section 4 — Winners */}
-      <section className="py-24 bg-brand-cream border-t border-brand-taupe">
         <div className="container mx-auto px-6 max-w-3xl text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-6">
             Our Winners

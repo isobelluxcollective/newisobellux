@@ -15,6 +15,13 @@ function getSupabase(): SupabaseClient {
 
 // Tier mapping (universal — applies to subscriptions and one-off)
 const TIER_TICKETS: Record<string, number> = {
+  bundle1: 1,
+  bundle3: 3,
+  bundle6: 6,
+  bundle12: 12,
+  sub6: 6,
+  sub14: 14,
+  // Legacy tiers
   collector: 12,
   aficionado: 30,
   icon: 60,
@@ -22,10 +29,53 @@ const TIER_TICKETS: Record<string, number> = {
 
 function resolveTier(lookupKey?: string | null): { tier: string; tickets: number } | null {
   if (!lookupKey) return null;
-  if (lookupKey.includes("collector")) return { tier: "collector", tickets: 12 };
-  if (lookupKey.includes("aficionado")) return { tier: "aficionado", tickets: 30 };
-  if (lookupKey.includes("icon")) return { tier: "icon", tickets: 60 };
+  const key = lookupKey.toLowerCase();
+  if (key.includes("sub14")) return { tier: "sub14", tickets: 14 };
+  if (key.includes("sub6")) return { tier: "sub6", tickets: 6 };
+  if (key.includes("bundle12")) return { tier: "bundle12", tickets: 12 };
+  if (key.includes("bundle6")) return { tier: "bundle6", tickets: 6 };
+  if (key.includes("bundle3")) return { tier: "bundle3", tickets: 3 };
+  if (key.includes("bundle1")) return { tier: "bundle1", tickets: 1 };
+  if (key.includes("collector")) return { tier: "collector", tickets: 12 };
+  if (key.includes("aficionado")) return { tier: "aficionado", tickets: 30 };
+  if (key.includes("icon")) return { tier: "icon", tickets: 60 };
   return null;
+}
+
+async function directDrawEntry(userId: string, raffleId: string, tickets: number) {
+  const { data: raffle } = await getSupabase()
+    .from("raffles")
+    .select("status, total_ticket_pool")
+    .eq("id", raffleId)
+    .maybeSingle();
+  if (!raffle || raffle.status !== "live") {
+    console.error("directDrawEntry: raffle not live", raffleId);
+    return false;
+  }
+
+  const maxPerUser = Math.max(1, Math.floor((raffle.total_ticket_pool ?? 0) / 10));
+  const { data: existingRows } = await getSupabase()
+    .from("entries")
+    .select("tickets")
+    .eq("user_id", userId)
+    .eq("raffle_id", raffleId);
+  const existing = (existingRows ?? []).reduce((sum, row) => sum + (row.tickets ?? 0), 0);
+  if (existing + tickets > maxPerUser) {
+    console.error("directDrawEntry: cap exceeded", { userId, raffleId, tickets, maxPerUser });
+    return false;
+  }
+
+  const { error } = await getSupabase().from("entries").insert({
+    user_id: userId,
+    raffle_id: raffleId,
+    tickets,
+    source: "oneoff",
+  });
+  if (error) {
+    console.error("directDrawEntry failed", error);
+    return false;
+  }
+  return true;
 }
 
 async function alreadyProcessed(eventId: string): Promise<boolean> {
@@ -173,7 +223,17 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv, eventId: st
     return;
   }
 
-  await incrementBalance(userId, tierInfo.tickets);
+  const raffleId = session.metadata?.raffleId as string | undefined;
+  if (raffleId) {
+    const ok = await directDrawEntry(userId, raffleId, tierInfo.tickets);
+    if (!ok) {
+      console.error("checkout.session.completed: direct entry failed, crediting balance instead");
+      await incrementBalance(userId, tierInfo.tickets);
+    }
+  } else {
+    await incrementBalance(userId, tierInfo.tickets);
+  }
+
   await recordGrant({
     userId,
     eventId,

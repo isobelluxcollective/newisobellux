@@ -6,10 +6,10 @@ import { useCountdown } from "@/lib/countdown";
 export const Route = createFileRoute("/raffle/$id")({
   head: ({ loaderData }) => {
     const r = loaderData as Raffle | undefined;
-    const title = r ? `${r.prize_name} — Isobel's` : "Draw — Isobel's";
+    const title = r ? `${r.prize_name} — Isobels` : "Draw — Isobels";
     const desc = r
       ? `Enter to win a ${r.prize_short}. Tickets from £${r.ticket_price}.`
-      : "Isobel's luxury draw.";
+      : "Isobels luxury draw.";
     return {
       meta: [
         { title },

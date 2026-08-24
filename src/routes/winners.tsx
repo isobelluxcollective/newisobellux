@@ -4,16 +4,16 @@ import { pastWinners } from "@/lib/raffle-data";
 export const Route = createFileRoute("/winners")({
   head: () => ({
     meta: [
-      { title: "Past Winners — Isobel's Draws" },
+      { title: "Past Winners — Isobels" },
       {
         name: "description",
         content:
-          "See the women who've won iconic designer pieces with Isobel's — Chanel, Cartier, Dior, Van Cleef and more.",
+          "See the women who've won iconic designer pieces with Isobels — Chanel, Cartier, Dior, Van Cleef and more.",
       },
-      { property: "og:title", content: "Past Winners — Isobel's" },
+      { property: "og:title", content: "Past Winners — Isobels" },
       {
         property: "og:description",
-        content: "Real women, real luxury wins. Browse the Isobel's winners archive.",
+        content: "Real women, real luxury wins. Browse the Isobels winners archive.",
       },
     ],
   }),
@@ -32,8 +32,8 @@ function WinnersPage() {
             Past Winners
           </h1>
           <p className="text-base text-brand-ink/70 leading-relaxed">
-            A small archive of the women who've taken home an Isobel's prize. With their permission,
-            we share their first names and Instagram handles.
+            A small archive of the women who&apos;ve taken home an Isobels prize. With their
+            permission, we share their first names and the pieces they won.
           </p>
         </div>
       </section>
@@ -58,11 +58,11 @@ function WinnersPage() {
                 />
               </div>
               <div className="space-y-6">
-                <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-brand-ink/50">
-                  <span>Draw {w.drawNumber}</span>
-                  <span className="size-1 rounded-full bg-brand-ink/30" />
-                  <span>{w.drawDate}</span>
-                </div>
+                {w.drawDate ? (
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-brand-ink/50">
+                    {w.drawDate}
+                  </p>
+                ) : null}
                 <h2 className="font-serif text-4xl md:text-5xl italic text-brand-ink">
                   {w.firstName}, <span className="text-brand-ink/60">{w.city}</span>
                 </h2>
@@ -72,12 +72,6 @@ function WinnersPage() {
                 <blockquote className="border-l-2 border-brand-gold pl-6 text-lg italic text-brand-ink/80 leading-relaxed max-w-prose">
                   "{w.quote}"
                 </blockquote>
-                {w.instagram && (
-                  <p className="text-xs text-brand-ink/50">
-                    Follow {w.firstName} on Instagram:{" "}
-                    <span className="text-brand-ink">{w.instagram}</span>
-                  </p>
-                )}
               </div>
             </article>
           ))}
@@ -90,7 +84,7 @@ function WinnersPage() {
             Your name could be next.
           </h2>
           <p className="text-sm text-brand-ink/60 mb-8">
-            The current draw closes soon. Enter from £10 or subscribe for the best value.
+            The current draw closes soon. Enter from £5 or subscribe for the best value.
           </p>
           <Link
             to="/enter"

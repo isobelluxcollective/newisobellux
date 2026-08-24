@@ -16,11 +16,15 @@ import { StripeEmbeddedCheckout } from "@/components/stripe-embedded-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { getStripeEnvironment } from "@/lib/stripe";
 import { cn } from "@/lib/utils";
-import { TIER_ONEOFF_PRICE, TIER_ORDER, tierFor, type TierId } from "@/lib/tiers";
+import { TierGrid } from "@/components/tier-grid";
+import {
+  type TierId,
+  tierFor,
+} from "@/lib/tiers";
 
 const searchSchema = z.object({
   raffle: z.string().uuid().optional(),
-  plan: z.enum(["collector", "aficionado", "icon", "postal"]).optional(),
+  plan: z.enum(["bundle1", "bundle3", "bundle6", "bundle12", "sub6", "sub14", "postal"]).optional(),
   mode: z.enum(["subscription", "oneoff", "tickets"]).optional(),
   confirm: z.coerce.boolean().optional(),
   error: z.enum(["payment_failed"]).optional(),
@@ -40,8 +44,8 @@ export const Route = createFileRoute("/enter")({
   },
   head: () => ({
     meta: [
-      { title: "Enter a Draw — Isobel's" },
-      { name: "description", content: "Choose a luxury draw and enter from £10." },
+      { title: "Enter a Draw — Isobels" },
+      { name: "description", content: "Choose a luxury draw and enter from £5." },
     ],
   }),
   notFoundComponent: () => (
@@ -147,7 +151,7 @@ function FlowAGuest({ raffle, errorParam }: { raffle: Raffle; errorParam?: "paym
           <div className="flex justify-center gap-8 sm:gap-14 mb-10 border-b border-black/10">
             {[
               { id: "postal", label: "Postal", sub: "No purchase necessary" },
-              { id: "oneoff", label: "Single Purchase", sub: "From £10" },
+              { id: "oneoff", label: "Single Purchase", sub: "From £5" },
               { id: "subscription", label: "Subscription", sub: "Best value" },
             ].map((t) => (
               <button
@@ -191,171 +195,6 @@ function FlowAGuest({ raffle, errorParam }: { raffle: Raffle; errorParam?: "paym
   );
 }
 
-function TierGrid({
-  raffle,
-  mode,
-  guest = false,
-}: {
-  raffle: Raffle;
-  mode: "subscription" | "oneoff";
-  guest?: boolean;
-}) {
-  return (
-    <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12 items-stretch">
-      {TIER_ORDER.map((id) => {
-        const t = tierFor(mode, id);
-        const isPopular = id === "aficionado";
-        const isPremium = id === "icon";
-        const redirect = `/basket?raffle=${raffle.id}&plan=${id}&mode=${mode}&step=1`;
-        const basketSearch = {
-          raffle: raffle.id,
-          plan: id,
-          mode,
-          step: 1 as const,
-        };
-
-        const bonuses =
-          id === "icon"
-            ? [
-                {
-                  tone: "blue" as const,
-                  title: "BONUS:",
-                  text: "Early access to every new draw before public release",
-                },
-                {
-                  tone: "pink" as const,
-                  title: "BONUS:",
-                  text: "Priority winner announcements & members styling notes",
-                },
-              ]
-            : [
-                {
-                  tone: "pink" as const,
-                  title: "BONUS:",
-                  text: "5% of profits donated to charity with every entry",
-                },
-              ];
-
-        const ctaClass =
-          "mt-auto block w-full rounded-full bg-brand-ink py-3.5 text-center text-sm font-bold text-brand-cream shadow-sm transition-transform hover:scale-[1.02] hover:brightness-95";
-
-        return (
-          <div
-            key={id}
-            className={cn(
-              "relative flex flex-col rounded-2xl overflow-visible bg-white shadow-[0_8px_28px_rgba(21,61,117,0.12)]",
-              isPremium && "ring-[3px] ring-brand-ink",
-            )}
-          >
-            {mode === "subscription" && (
-              <div className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-ink px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
-                {isPremium ? (
-                  <>
-                    <span className="text-brand-cream">Two</span> bonuses included
-                  </>
-                ) : (
-                  "Bonus included"
-                )}
-              </div>
-            )}
-
-            {isPopular && (
-              <div className="absolute -top-5 right-3 z-20 flex h-16 w-16 rotate-6 items-center justify-center rounded-full bg-brand-cream border-2 border-brand-ink text-center shadow-md sm:h-[4.5rem] sm:w-[4.5rem]">
-                <span className="px-1 text-[8px] sm:text-[9px] font-bold uppercase leading-tight tracking-wide text-brand-ink">
-                  Most
-                  <br />
-                  Popular
-                </span>
-              </div>
-            )}
-
-            <div className="rounded-t-2xl bg-brand-ink px-6 pb-8 pt-10 text-center text-white">
-              <p className="mb-2 text-xl font-bold text-brand-cream sm:text-2xl">
-                {t.tickets} Entries
-              </p>
-              <p className="leading-none">
-                <span className="text-4xl font-bold sm:text-5xl">£{t.price}</span>
-                <span className="text-base font-semibold text-white/85">
-                  {mode === "subscription" ? "/month" : ""}
-                </span>
-              </p>
-              {mode === "oneoff" && (
-                <p className="mt-2 text-xs uppercase tracking-widest text-white/55">One-time</p>
-              )}
-            </div>
-
-            <div className="flex flex-1 flex-col gap-4 px-5 pb-6 pt-5">
-              <ul className="space-y-2.5 text-left text-sm text-[#2a2a2a]">
-                {mode === "subscription" && (
-                  <li className="flex items-start gap-2.5">
-                    <CheckIcon />
-                    <span>Cancel at any time</span>
-                  </li>
-                )}
-                <li className="flex items-start gap-2.5">
-                  <CheckIcon />
-                  <span>
-                    {t.tickets} entries into every live Isobel's draw
-                    {mode === "subscription" ? " each month" : ""}
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckIcon />
-                  <span>Use tickets across any live draw</span>
-                </li>
-              </ul>
-
-              {bonuses.map((b) => (
-                <div
-                  key={b.text}
-                  className={cn(
-                    "rounded-lg px-3.5 py-3 text-left text-[12px] leading-snug",
-                    b.tone === "pink" ? "bg-[#fde8ef]" : "bg-[#e7f3f8]",
-                  )}
-                >
-                  <p>
-                    <span className="font-bold text-brand-ink">{b.title}</span>{" "}
-                    <span className="text-[#2a2a2a]">{b.text}</span>
-                  </p>
-                </div>
-              ))}
-
-              {guest ? (
-                <Link to="/auth" search={{ redirect, mode: "signup" }} className={ctaClass}>
-                  Enter Now
-                </Link>
-              ) : (
-                <Link to="/basket" search={basketSearch} className={ctaClass}>
-                  Enter Now
-                </Link>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <span
-      className="mt-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-ink text-white"
-      aria-hidden
-    >
-      <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
-        <path
-          d="M2.5 6.2 4.8 8.5 9.5 3.5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
-  );
-}
-
 function PostalPanel({ raffle }: { raffle: Raffle }) {
   return (
     <div className="bg-white border border-brand-taupe p-10 md:p-14 max-w-2xl mx-auto">
@@ -364,7 +203,7 @@ function PostalPanel({ raffle }: { raffle: Raffle }) {
       </span>
       <h3 className="font-serif text-3xl italic mb-6">Maximum one entry per postcard</h3>
       <p className="text-sm text-brand-ink/70 leading-relaxed mb-8">
-        Isobel's offers a free alternative means of entering every draw. To enter by post, write or
+        Isobels offers a free alternative means of entering every draw. To enter by post, write or
         type the following details on a blank sheet of paper or postcard:
       </p>
       <div className="border-l-2 border-brand-gold pl-6 mb-8">
@@ -375,7 +214,7 @@ function PostalPanel({ raffle }: { raffle: Raffle }) {
           <li>· Your telephone number (optional)</li>
           <li>· Your email address</li>
           <li>
-            · The name and number of the draw you wish to enter (e.g. "Isobel's Draw —{" "}
+            · The name and number of the draw you wish to enter (e.g. "Isobels Draw —{" "}
             <em>{raffle.prize_name}</em>, Draw No. {raffle.draw_number}")
           </li>
         </ul>
@@ -413,7 +252,7 @@ function FlowBLoggedIn({
 }: {
   raffle: Raffle;
   firstName: string;
-  plan?: "collector" | "aficionado" | "icon" | "postal";
+  plan?: TierId | "postal";
   mode?: "subscription" | "oneoff" | "tickets";
   confirm: boolean;
   errorParam?: "payment_failed";
@@ -505,11 +344,10 @@ function ChooseEntryOption({
           </h3>
           {expiryStr && <p className="text-xs text-brand-ink/60 mb-6">Expires {expiryStr}</p>}
           <Link
-            to="/enter"
-            search={{ raffle: raffle.id, plan: "aficionado", mode: "tickets", confirm: true }}
+            to="/members/allocate"
             className="inline-block rounded-full bg-brand-ink px-8 py-3.5 text-sm font-bold text-brand-cream hover:brightness-95 transition-[filter]"
           >
-            Use my tickets
+            Allocate my tickets
           </Link>
         </div>
       )}
@@ -547,23 +385,32 @@ function ChooseEntryOption({
   );
 }
 
+function isPurchasableTier(plan: string): plan is TierId {
+  return (
+    plan === "bundle1" ||
+    plan === "bundle3" ||
+    plan === "bundle6" ||
+    plan === "bundle12" ||
+    plan === "sub6" ||
+    plan === "sub14"
+  );
+}
+
 function ConfirmationCard({
   raffle,
   plan,
   mode,
 }: {
   raffle: Raffle;
-  plan: "collector" | "aficionado" | "icon" | "postal";
+  plan: TierId | "postal";
   mode: "subscription" | "oneoff" | "tickets";
 }) {
   const navigate = useNavigate();
   const { user, session } = useAuth();
   const authReady = typeof window !== "undefined" && !!session?.access_token;
   const tier =
-    plan === "collector" || plan === "aficionado" || plan === "icon"
-      ? mode === "subscription" || mode === "oneoff"
-        ? tierFor(mode, plan)
-        : TIER_ONEOFF_PRICE[plan]
+    isPurchasableTier(plan) && mode !== "tickets"
+      ? tierFor(mode === "subscription" ? "subscription" : "oneoff", plan)
       : null;
 
   // Saved card lookup (oneoff only)
@@ -616,7 +463,9 @@ function ConfirmationCard({
           priceId={tier.priceId}
           customerEmail={user?.email ?? undefined}
           userId={user?.id}
-          returnUrl={`${window.location.origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}&raffle=${raffle.id}`}
+          raffleId={mode === "oneoff" ? raffle.id : undefined}
+          checkoutMode={mode === "subscription" ? "subscription" : "oneoff"}
+          returnUrl={`${window.location.origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}&raffle=${raffle.id}&mode=${mode}`}
         />
         <button
           type="button"

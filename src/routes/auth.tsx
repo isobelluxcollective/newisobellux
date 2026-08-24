@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
@@ -13,10 +12,10 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Sign in or Sign up — Isobel's" },
+      { title: "Sign in or Sign up — Isobels" },
       {
         name: "description",
-        content: "Create your Isobel's account to enter the draw and manage your subscription.",
+        content: "Create your Isobels account to enter the draw and manage your subscription.",
       },
     ],
   }),
@@ -63,10 +62,12 @@ function AuthPage() {
   async function handleGoogle() {
     setFormError(null);
     setInfoMessage(null);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + redirect,
+    const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirect)}`;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo },
     });
-    if (result.error) {
+    if (error) {
       setFormError("Could not sign in with Google. Please try again.");
     }
   }
@@ -191,7 +192,7 @@ function AuthPage() {
             Members
           </p>
           <h1 className="font-serif text-4xl md:text-5xl italic text-brand-ink mb-3">
-            {mode === "signup" ? "Join Isobel's" : "Welcome back"}
+            {mode === "signup" ? "Join Isobels" : "Welcome back"}
           </h1>
           <p className="text-sm text-brand-ink/60">
             {mode === "signup"

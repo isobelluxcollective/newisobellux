@@ -8,7 +8,7 @@ import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 
 const searchSchema = z.object({
   raffle: z.string().uuid(),
-  plan: z.enum(["collector", "aficionado", "icon"]),
+  plan: z.enum(["bundle1", "bundle3", "bundle6", "bundle12", "sub6", "sub14"]),
   mode: z.enum(["subscription", "oneoff"]),
   step: z.coerce.number().int().min(1).max(2).default(1),
 });
@@ -23,8 +23,8 @@ export const Route = createFileRoute("/basket")({
   },
   head: () => ({
     meta: [
-      { title: "Your Basket — Isobel's" },
-      { name: "description", content: "Review your Isobel's draw entry before checkout." },
+      { title: "Your Basket — Isobels" },
+      { name: "description", content: "Review your Isobels draw entry before checkout." },
     ],
   }),
   notFoundComponent: () => (
@@ -228,12 +228,13 @@ function StepTwoSummary({
         {mode === "subscription" ? (
           <>
             When your subscription renews each month, you&apos;ll get{" "}
-            <strong>{tier.tickets} entries</strong> into Isobel&apos;s live luxury draws.
+            <strong>{tier.tickets} entries</strong> into Isobels live luxury draws.
           </>
         ) : (
           <>
-            You&apos;ll receive <strong>{tier.tickets} entries</strong> to use across Isobel&apos;s
-            live luxury draws.
+            You&apos;ll receive <strong>{tier.tickets} entries</strong> into{" "}
+            <strong>{raffle.prize_short}</strong> (Draw No. {raffle.draw_number}) only — they
+            cannot be moved to other live draws.
           </>
         )}
       </p>
@@ -255,9 +256,8 @@ function StepTwoSummary({
       </Link>
 
       <p className="pt-4 text-center text-[11px] leading-relaxed text-[#777] max-w-xl mx-auto">
-        Isobel&apos;s draws are open to UK residents aged 18+. No purchase necessary — a free postal
-        entry route is available. 5% of profits are donated to charity. Winner may choose the prize
-        or its cash equivalent.
+        Isobels draws are open to UK residents aged 18+. No purchase necessary — a free postal
+        entry route is available. Winner may choose the prize or its cash equivalent.
       </p>
     </div>
   );
@@ -303,14 +303,9 @@ function BasketItemCard({
           {mode === "subscription" ? "/month" : ""}
         </p>
         <p className="text-sm font-semibold text-brand-ink">
-          {tier.tickets} Entries into the {raffle.prize_short} Draw
+          {tier.tickets} {tier.tickets === 1 ? "Entry" : "Entries"} into the {raffle.prize_short}{" "}
+          Draw
         </p>
-
-        <div className="rounded-lg bg-[#fde8ef] px-4 py-3 text-sm leading-snug text-[#2a2a2a]">
-          <span className="font-bold text-brand-ink">BONUS: </span>
-          5% of profits donated to charity with every entry. Winner&apos;s choice of the piece or
-          cash equivalent.
-        </div>
       </div>
     </article>
   );

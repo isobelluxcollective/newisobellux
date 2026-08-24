@@ -10,8 +10,8 @@ export const Route = createFileRoute("/login")({
   }),
   head: () => ({
     meta: [
-      { title: "Log In — Isobel's" },
-      { name: "description", content: "Sign in to your Isobel's members account." },
+      { title: "Log In — Isobels" },
+      { name: "description", content: "Sign in to your Isobels members account." },
     ],
   }),
   component: LoginPage,
@@ -94,7 +94,7 @@ function LoginPage() {
           <h1 className="font-serif text-5xl md:text-6xl italic text-brand-ink mb-3">
             Welcome Back
           </h1>
-          <p className="text-sm text-brand-ink/60">Sign in to your Isobel's account</p>
+          <p className="text-sm text-brand-ink/60">Sign in to your Isobels account</p>
         </div>
 
         <div className="bg-white border border-brand-taupe p-8 md:p-10">
@@ -148,7 +148,7 @@ function LoginPage() {
                 search={{ redirect, mode: "signup" }}
                 className="text-xs text-brand-ink hover:text-brand-gold transition-colors"
               >
-                New to Isobel's? <span className="underline">Create an account</span>
+                New to Isobels? <span className="underline">Create an account</span>
               </Link>
               <button
                 type="button"

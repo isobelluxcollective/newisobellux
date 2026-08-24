@@ -2,23 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { pastWinners } from "@/lib/raffle-data";
 
-const INSTAGRAM_HANDLE = "isobel";
+const INSTAGRAM_HANDLE = "isobelluxcollective";
 const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`;
 const TAGGED_URL = `https://instagram.com/${INSTAGRAM_HANDLE}/tagged/`;
 
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — Tagged on Instagram | Isobel's" },
+      { title: "Community — Tagged on Instagram | Isobels" },
       {
         name: "description",
         content:
-          "See past winners and the Isobel's community shared on Instagram. Tag @isobel to be featured.",
+          "See past winners and the Isobels community shared on Instagram. Tag @isobelluxcollective to be featured.",
       },
-      { property: "og:title", content: "The Isobel's Community on Instagram" },
+      { property: "og:title", content: "The Isobels Community on Instagram" },
       {
         property: "og:description",
-        content: "Tagged photos from past winners and the wider Isobel's community.",
+        content: "Tagged photos from past winners and the wider Isobels community.",
       },
     ],
   }),
@@ -34,11 +34,8 @@ const feedItems = [
 ].slice(0, 12).map((w, i) => ({
   id: `${w.id}-${i}`,
   image: w.image,
-  caption:
-    w.instagram && i % 2 === 0
-      ? `${w.instagram} · ${w.prize}`
-      : `${w.firstName} · ${w.prize}`,
-  href: w.instagram ? `https://instagram.com/${w.instagram.replace("@", "")}` : INSTAGRAM_URL,
+  caption: `${w.firstName} · ${w.prize}`,
+  href: INSTAGRAM_URL,
 }));
 
 function CommunityPage() {
@@ -46,15 +43,13 @@ function CommunityPage() {
     <>
       <section className="bg-white pt-20 pb-16 border-b border-brand-ink/5">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-4">
-            #Isobel'sMoments
-          </p>
           <h1 className="font-serif text-4xl md:text-6xl text-brand-ink mb-6">
-            Tagged on <em className="text-brand-gold">Instagram</em>
+            Community
           </h1>
-          <p className="text-sm md:text-base text-brand-ink/70 max-w-xl mx-auto leading-relaxed mb-8">
-            A living gallery of the Isobel's community — past winners with their prizes
-            and members styling their pieces. Tag{" "}
+          <p className="text-sm md:text-base text-brand-ink/70 max-w-2xl mx-auto leading-relaxed mb-8">
+            Isobels isn&apos;t just about winning. It&apos;s about being part of something. Every
+            week, our community shares what happens after the draw: the reveal, the reaction, the
+            moment a bag or bracelet they never imagined winning becomes theirs. Tag{" "}
             <a
               href={INSTAGRAM_URL}
               target="_blank"
@@ -63,7 +58,9 @@ function CommunityPage() {
             >
               @{INSTAGRAM_HANDLE}
             </a>{" "}
-            to be featured.
+            on Instagram or TikTok, and you might see yourself featured right here. This is where
+            our winners become part of the story, not just the result. Follow along, share your
+            entry, and be part of the next win.
           </p>
           <a
             href={INSTAGRAM_URL}

@@ -25,10 +25,10 @@ export function SiteFooter() {
         {/* Navigation columns */}
         <div className="grid md:grid-cols-5 gap-12 mb-20">
           <div className="md:col-span-1">
-            <Link to="/" className="inline-flex items-center mb-6" aria-label="Isobel's home">
+            <Link to="/" className="inline-flex items-center mb-6" aria-label="Isobels home">
               <img
                 src={logoFooter}
-                alt="Isobel's"
+                alt="Isobels"
                 className="h-14 sm:h-16 md:h-20 w-auto object-contain"
                 width={200}
                 height={48}
@@ -36,25 +36,25 @@ export function SiteFooter() {
             </Link>
             <div className="flex items-center gap-4 mb-6">
               <a
-                href="https://www.instagram.com/isobel"
+                href="https://www.instagram.com/isobelluxcollective"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="Isobels on Instagram @isobelluxcollective"
                 className="text-brand-cream/70 hover:text-brand-cream transition-colors"
               >
                 <Instagram className="size-5" />
               </a>
               <a
-                href="https://www.tiktok.com/@isobel"
+                href="https://www.tiktok.com/@isobelmarysalter"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="TikTok"
+                aria-label="Isobels on TikTok @isobelmarysalter"
                 className="text-brand-cream/70 hover:text-brand-cream transition-colors"
               >
                 <TikTokIcon className="size-5" />
               </a>
             </div>
-            <p className="text-[11px] text-brand-cream/40">© 2026 Isobel's</p>
+            <p className="text-[11px] text-brand-cream/40">© | 2026 Isobels Luxe Collective</p>
           </div>
 
           <div>
@@ -62,19 +62,18 @@ export function SiteFooter() {
             <ul className="space-y-3">
               <li><Link to="/raffle" className={linkCls}>Current Draws</Link></li>
               <li><Link to="/winners" className={linkCls}>Past Draws</Link></li>
-              <li><Link to="/community" className={linkCls}>Our Winners</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className={colHeading}>Isobel's</h4>
+            <h4 className={colHeading}>Isobels</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className={linkCls}>About Us</Link></li>
               <li><a href="/about#how-it-works" className={linkCls}>How It Works</a></li>
               <li><Link to="/enter" className={linkCls}>Pricing</Link></li>
               <li><Link to="/public-relations" className={linkCls}>Public Relations</Link></li>
               <li><Link to="/contact" className={linkCls}>Contact Us</Link></li>
-              <li><a href="/faqs" className={linkCls}>FAQs</a></li>
+              <li><Link to="/faqs" className={linkCls}>FAQs</Link></li>
             </ul>
           </div>
 
@@ -118,17 +117,17 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-20 pt-8 border-t border-brand-cream/5 flex justify-between items-center text-[9px] uppercase tracking-[0.3em]">
-          <span>© {new Date().getFullYear()} Isobel's Draws Ltd.</span>
+          <span>© | {new Date().getFullYear()} Isobels Luxe Collective</span>
           <span>Please Draw Responsibly · 18+</span>
         </div>
         <div className="mt-10 pt-6 border-t border-brand-cream/10">
           <p className="text-[11px] leading-relaxed text-brand-cream/35 max-w-4xl">
-            Please note that Isobel's draws are not a charity raffle or lottery but a prize draw.
-            Our draws include a free postal method of entry. No purchase is necessary to enter.
-            Free postal entry is limited to one entry per postcard — multiple entries submitted on
-            a single postcard will not be valid. The winner may elect to receive the cash value
-            equivalent of the prize in lieu of the physical item. Isobel's draws are operated in
-            compliance with UK competition law.
+            Please note that Isobels draws are a prize draw, not a lottery. Our draws include a free
+            postal method of entry. No purchase is necessary to enter. Free postal entry is limited
+            to one entry per postcard — multiple entries submitted on a single postcard will not be
+            valid. The winner may elect to receive the cash value equivalent of the prize in lieu of
+            the physical item. Isobels draws are operated by Isobels Luxe Collective in compliance
+            with UK competition law.
           </p>
         </div>
       </div>

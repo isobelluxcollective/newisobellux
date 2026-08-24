@@ -72,17 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Isobel's — Luxury Designer Draws for Women" },
+      { title: "Isobels — Luxury Designer Draws for Women" },
       {
         name: "description",
         content:
-          "Win iconic designer handbags, fine jewellery and couture from £10. 5% of every entry goes to charity. Isobel's is a luxury draw for women.",
+          "Enter live draws to win iconic designer handbags and jewellery, independently authenticated, from £5",
       },
-      { name: "author", content: "Isobel's Draws" },
-      { property: "og:title", content: "Isobel's — Luxury Designer Draws for Women" },
+      { name: "author", content: "Isobels Luxe Collective" },
+      { property: "og:title", content: "Isobels — Luxury Designer Draws for Women" },
       {
         property: "og:description",
-        content: "Win iconic designer pieces from £10. 5% of profits to charity.",
+        content:
+          "Enter live draws to win iconic designer handbags and jewellery, independently authenticated, from £5",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

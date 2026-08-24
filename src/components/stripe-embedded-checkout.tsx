@@ -8,7 +8,8 @@ interface Props {
   customerEmail?: string;
   userId?: string;
   returnUrl?: string;
-  // Per-raffle ad-hoc pricing (one-time only)
+  raffleId?: string;
+  checkoutMode?: "oneoff" | "subscription";
   adhocAmountPence?: number;
   adhocProductName?: string;
   adhocRaffleId?: string;
@@ -20,6 +21,8 @@ export function StripeEmbeddedCheckout({
   customerEmail,
   userId,
   returnUrl,
+  raffleId,
+  checkoutMode,
   adhocAmountPence,
   adhocProductName,
   adhocRaffleId,
@@ -31,8 +34,12 @@ export function StripeEmbeddedCheckout({
         quantity,
         customerEmail,
         userId,
-        returnUrl: returnUrl || `${window.location.origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+        returnUrl:
+          returnUrl ||
+          `${window.location.origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
         environment: getStripeEnvironment(),
+        raffleId,
+        checkoutMode,
         adhocAmountPence,
         adhocProductName,
         adhocRaffleId,

@@ -2,14 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { getLiveRaffles } from "@/lib/raffles.functions";
 import type { Raffle } from "@/lib/raffle-data";
 import { useCountdown } from "@/lib/countdown";
+import { CountdownPill } from "@/components/countdown-pill";
 
+const HERO_FALLBACK =
+  "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=2400&q=80";
 
 export const Route = createFileRoute("/raffle")({
   head: () => ({
     meta: [
-      { title: "Live Draws — Isobel's" },
-      { name: "description", content: "Browse every live luxury draw at Isobel's." },
-      { property: "og:title", content: "Live Draws — Isobel's" },
+      { title: "Live Draws — Isobels" },
+      { name: "description", content: "Browse every live luxury draw at Isobels." },
+      { property: "og:title", content: "Live Draws — Isobels" },
       { property: "og:description", content: "All currently open luxury draws." },
     ],
   }),
@@ -51,15 +54,18 @@ function Card({ r }: { r: Raffle }) {
     <div className="group block bg-white border border-brand-taupe hover:border-brand-ink transition-colors">
       <div className="relative overflow-hidden">
         <img
-          src={r.hero_image_url || "/hero-prize.jpg"}
+          src={r.hero_image_url || HERO_FALLBACK}
           alt={r.prize_short}
           loading="lazy"
           width={800}
           height={1000}
           className="w-full aspect-[4/5] object-cover"
         />
-        <div className="absolute top-3 left-3 bg-white px-3 py-1 text-[10px] uppercase tracking-widest text-brand-ink font-bold font-mono z-10">
-          {String(c.days * 24 + c.hours).padStart(2, "0")}:{String(c.minutes).padStart(2, "0")}:{String(c.seconds).padStart(2, "0")}
+        <div className="absolute top-3 left-3 bg-white px-3.5 py-1.5 text-sm sm:text-base font-bold tracking-wide text-brand-ink shadow-sm z-10">
+          From £5
+        </div>
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
+          <CountdownPill countdown={c} size="sm" caption="Closes in" />
         </div>
         <div className="absolute inset-0 bg-brand-ink/45 opacity-100 group-hover:opacity-100 [@media(hover:hover)]:opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center gap-3 px-6 z-20">
           <Link
@@ -79,11 +85,11 @@ function Card({ r }: { r: Raffle }) {
         </div>
       </div>
       <div className="p-5 space-y-2">
-        <Link to="/raffle/$id" params={{ id: r.id }} className="block space-y-2">
-          <p className="text-[10px] uppercase tracking-widest text-brand-ink/50">Draw {r.draw_number}</p>
-          <h3 className="font-serif text-xl italic text-brand-ink leading-tight">{r.prize_name}</h3>
+        <Link to="/raffle/$id" params={{ id: r.id }} className="block">
+          <h3 className="font-serif text-xl italic font-bold text-brand-ink leading-tight">
+            {r.prize_name}
+          </h3>
         </Link>
-        <p className="text-[11px] text-brand-ink/60">From £{r.ticket_price} per ticket</p>
         <Link
           to="/enter"
           search={{ postal: true }}
@@ -95,4 +101,3 @@ function Card({ r }: { r: Raffle }) {
     </div>
   );
 }
-

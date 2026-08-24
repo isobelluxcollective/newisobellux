@@ -4,11 +4,11 @@ import { EnquiryForm } from "@/components/enquiry-form";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Us — Isobel's" },
+      { title: "Contact Us — Isobels" },
       {
         name: "description",
         content:
-          "Get in touch with Isobel's. Have a question about a draw, your account, or anything else? We're here to help.",
+          "Get in touch with Isobels. Have a question about a draw, your account, or anything else? We're here to help.",
       },
     ],
   }),
@@ -21,7 +21,7 @@ function ContactPage() {
       <div className="container mx-auto px-6 max-w-2xl">
         <div className="text-center mb-12">
           <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-6">
-            Isobel's
+            Isobels
           </p>
           <h1 className="font-serif italic text-5xl md:text-6xl text-brand-ink leading-[0.95] mb-8">
             Contact Us

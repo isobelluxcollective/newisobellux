@@ -11,8 +11,8 @@ export const Route = createFileRoute("/members")({
   }),
   head: () => ({
     meta: [
-      { title: "Members Portal — Isobel's" },
-      { name: "description", content: "Your Isobel's members portal: entries, orders and details." },
+      { title: "Members Portal — Isobels" },
+      { name: "description", content: "Your Isobels members portal: entries, orders and details." },
     ],
   }),
   component: MembersPage,
@@ -94,11 +94,23 @@ function MembersPage() {
             <Link to="/raffle" className="underline">View live draws</Link>
           </Banner>
         )}
-        {data?.low_balance && !data.expiring_soon && (
+        {data?.low_balance && !data.expiring_soon && balance > 0 && (
           <Banner tone="muted">
-            You're running low on tickets.{" "}
-            <Link to="/enter" className="underline">Top up</Link> to keep entering draws.
+            You have {balance} unallocated ticket{balance === 1 ? "" : "s"}.{" "}
+            <Link to="/members/allocate" className="underline">
+              Allocate across live draws
+            </Link>
           </Banner>
+        )}
+        {balance > 0 && (
+          <div className="mb-8 text-center">
+            <Link
+              to="/members/allocate"
+              className="inline-block rounded-full border border-brand-ink px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-ink hover:bg-brand-ink hover:text-brand-cream transition-colors"
+            >
+              Allocate subscription entries
+            </Link>
+          </div>
         )}
 
         {/* Active Entries */}
