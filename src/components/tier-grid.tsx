@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 function CheckIcon() {
   return (
     <span
-      className="mt-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-ink text-white"
+      className="mt-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-oxblood text-white"
       aria-hidden
     >
       <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
@@ -39,7 +39,7 @@ export function TierGrid({
 }) {
   const tiers = tierOrderFor(mode);
   const ctaClass =
-    "mt-auto block w-full rounded-full bg-brand-ink py-3.5 text-center text-sm font-bold text-brand-cream shadow-sm transition-transform hover:scale-[1.02] hover:brightness-95";
+    "mt-auto block w-full rounded-full bg-brand-oxblood py-3.5 text-center text-sm font-bold text-brand-cream shadow-sm transition-transform hover:scale-[1.02] hover:bg-brand-gold";
 
   return (
     <div className="space-y-8">
@@ -68,17 +68,17 @@ export function TierGrid({
             <div
               key={id}
               className={cn(
-                "relative flex flex-col rounded-2xl overflow-visible bg-white shadow-[0_8px_28px_rgba(21,61,117,0.12)]",
-                isBestValue && "ring-[3px] ring-brand-ink",
+                "relative flex flex-col rounded-2xl overflow-visible bg-white shadow-[0_8px_28px_rgba(94,36,48,0.12)]",
+                isBestValue && "ring-[3px] ring-brand-oxblood",
               )}
             >
               {isBestValue && (
-                <div className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-ink px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+                <div className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-oxblood px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
                   Best value
                 </div>
               )}
 
-              <div className="rounded-t-2xl bg-brand-ink px-5 pb-7 pt-8 text-center text-white">
+              <div className="rounded-t-2xl bg-brand-oxblood px-5 pb-7 pt-8 text-center text-white">
                 <p className="mb-2 text-lg font-bold text-brand-cream sm:text-xl">
                   {t.tickets} {t.tickets === 1 ? "Entry" : "Entries"}
                 </p>
@@ -95,7 +95,7 @@ export function TierGrid({
               </div>
 
               <div className="flex flex-1 flex-col gap-4 px-5 pb-6 pt-5">
-                <ul className="space-y-2.5 text-left text-sm text-[#2a2a2a]">
+                <ul className="space-y-2.5 text-left text-sm text-brand-ink/80">
                   {mode === "subscription" ? (
                     <>
                       <li className="flex items-start gap-2.5">

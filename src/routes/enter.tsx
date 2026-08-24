@@ -122,7 +122,61 @@ function EnterPage() {
 
 /* ------------------------------- FLOW A (guest) ------------------------------- */
 
-type Tab = "subscription" | "oneoff" | "postal";
+type Tab = "postal" | "oneoff" | "subscription";
+
+const ENTRY_TABS: { id: Tab; label: string; sub: string }[] = [
+  { id: "postal", label: "Postal", sub: "No purchase necessary" },
+  { id: "oneoff", label: "Single Purchase", sub: "From £5" },
+  { id: "subscription", label: "Subscription", sub: "Best value" },
+];
+
+function EntryTabs({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
+  return (
+    <div className="flex justify-center gap-8 sm:gap-14 mb-10 border-b border-black/10">
+      {ENTRY_TABS.map((t) => (
+        <button
+          key={t.id}
+          type="button"
+          onClick={() => onChange(t.id)}
+          className={cn(
+            "relative pb-4 pt-1 text-center transition-colors min-w-[5.5rem] sm:min-w-[7rem]",
+            tab === t.id ? "text-brand-ink" : "text-brand-ink/45 hover:text-brand-ink/70",
+          )}
+        >
+          <span className="block font-serif text-lg sm:text-xl">{t.label}</span>
+          <span className="hidden sm:block text-[10px] uppercase tracking-widest mt-0.5 opacity-70">
+            {t.sub}
+          </span>
+          {tab === t.id && (
+            <span className="absolute left-0 right-0 -bottom-px h-[3px] bg-brand-oxblood" />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function EntryTabContent({ raffle, tab, guest }: { raffle: Raffle; tab: Tab; guest?: boolean }) {
+  if (tab === "postal") return <PostalPanel raffle={raffle} />;
+  if (tab === "oneoff") {
+    return (
+      <>
+        <h2 className="text-center text-2xl sm:text-3xl font-bold text-brand-ink mb-4">
+          Single Purchase
+        </h2>
+        <TierGrid raffle={raffle} mode="oneoff" guest={guest} />
+      </>
+    );
+  }
+  return (
+    <>
+      <h2 className="text-center text-2xl sm:text-3xl font-bold text-brand-ink mb-4">
+        Monthly Subscriptions
+      </h2>
+      <TierGrid raffle={raffle} mode="subscription" guest={guest} />
+    </>
+  );
+}
 
 function FlowAGuest({ raffle, errorParam }: { raffle: Raffle; errorParam?: "payment_failed" }) {
   const [tab, setTab] = useState<Tab>("subscription");
@@ -148,47 +202,8 @@ function FlowAGuest({ raffle, errorParam }: { raffle: Raffle; errorParam?: "paym
 
       <section className="py-16 md:py-20 bg-brand-taupe">
         <div className="container mx-auto px-6 max-w-6xl">
-          <div className="flex justify-center gap-8 sm:gap-14 mb-10 border-b border-black/10">
-            {[
-              { id: "postal", label: "Postal", sub: "No purchase necessary" },
-              { id: "oneoff", label: "Single Purchase", sub: "From £5" },
-              { id: "subscription", label: "Subscription", sub: "Best value" },
-            ].map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => setTab(t.id as Tab)}
-                className={cn(
-                  "relative pb-4 pt-1 text-center transition-colors min-w-[5.5rem] sm:min-w-[7rem]",
-                  tab === t.id ? "text-brand-ink" : "text-brand-ink/45 hover:text-brand-ink/70",
-                )}
-              >
-                <span className="block text-sm sm:text-base font-semibold">{t.label}</span>
-                <span className="hidden sm:block text-[10px] mt-0.5 opacity-70">{t.sub}</span>
-                {tab === t.id && (
-                  <span className="absolute left-0 right-0 -bottom-px h-[3px] bg-brand-ink" />
-                )}
-              </button>
-            ))}
-          </div>
-
-          {tab === "postal" && <PostalPanel raffle={raffle} />}
-          {tab === "oneoff" && (
-            <>
-              <h2 className="text-center text-2xl sm:text-3xl font-bold text-brand-ink mb-10">
-                Single Purchase
-              </h2>
-              <TierGrid raffle={raffle} mode="oneoff" guest />
-            </>
-          )}
-          {tab === "subscription" && (
-            <>
-              <h2 className="text-center text-2xl sm:text-3xl font-bold text-brand-ink mb-10">
-                Monthly Subscriptions
-              </h2>
-              <TierGrid raffle={raffle} mode="subscription" guest />
-            </>
-          )}
+          <EntryTabs tab={tab} onChange={setTab} />
+          <EntryTabContent raffle={raffle} tab={tab} guest />
         </div>
       </section>
     </>
@@ -214,17 +229,22 @@ function PostalPanel({ raffle }: { raffle: Raffle }) {
           <li>· Your telephone number (optional)</li>
           <li>· Your email address</li>
           <li>
-            · The name and number of the draw you wish to enter (e.g. "Isobels Draw —{" "}
-            <em>{raffle.prize_name}</em>, Draw No. {raffle.draw_number}")
+            · The name and number of the draw you wish to enter (e.g. &quot;Isobels Draw —{" "}
+            <em>{raffle.prize_name}</em>, Draw No. {raffle.draw_number}&quot;)
           </li>
         </ul>
       </div>
       <div className="bg-brand-cream p-6">
-        <p className="text-[10px] uppercase tracking-widest text-brand-ink/50 mb-3">Post your entry to</p>
+        <p className="text-[10px] uppercase tracking-widest text-brand-ink/50 mb-3">
+          Post your entry to:
+        </p>
         <address className="not-italic text-sm text-brand-ink/90 leading-relaxed font-medium">
-          {postalAddress.line2}<br />
-          {postalAddress.line3}<br />
-          {postalAddress.line4}<br />
+          {postalAddress.line2}
+          <br />
+          {postalAddress.line3}
+          <br />
+          {postalAddress.line4}
+          <br />
           {postalAddress.line5}
         </address>
       </div>
@@ -327,7 +347,7 @@ function ChooseEntryOption({
   balance: number;
   expiry: string | null;
 }) {
-  const [tab, setTab] = useState<"subscription" | "oneoff">("subscription");
+  const [tab, setTab] = useState<Tab>("subscription");
   const expiryStr = expiry
     ? new Date(expiry).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
     : null;
@@ -345,42 +365,15 @@ function ChooseEntryOption({
           {expiryStr && <p className="text-xs text-brand-ink/60 mb-6">Expires {expiryStr}</p>}
           <Link
             to="/members/allocate"
-            className="inline-block rounded-full bg-brand-ink px-8 py-3.5 text-sm font-bold text-brand-cream hover:brightness-95 transition-[filter]"
+            className="inline-block rounded-full bg-brand-oxblood px-8 py-3.5 text-sm font-bold text-brand-cream hover:bg-brand-gold transition-colors"
           >
             Allocate my tickets
           </Link>
         </div>
       )}
 
-      <div className="flex justify-center gap-10 sm:gap-14 border-b border-black/10">
-        {(
-          [
-            { id: "oneoff" as const, label: "Single Purchase" },
-            { id: "subscription" as const, label: "Subscription" },
-          ]
-        ).map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setTab(t.id)}
-            className={cn(
-              "relative pb-4 text-sm sm:text-base font-semibold transition-colors",
-              tab === t.id ? "text-brand-ink" : "text-brand-ink/45 hover:text-brand-ink/70",
-            )}
-          >
-            {t.label}
-            {tab === t.id && (
-              <span className="absolute left-0 right-0 -bottom-px h-[3px] bg-brand-ink" />
-            )}
-          </button>
-        ))}
-      </div>
-
-      <h2 className="text-center text-2xl sm:text-3xl font-bold text-brand-ink">
-        {tab === "subscription" ? "Monthly Subscriptions" : "Single Purchase"}
-      </h2>
-
-      <TierGrid raffle={raffle} mode={tab} />
+      <EntryTabs tab={tab} onChange={setTab} />
+      <EntryTabContent raffle={raffle} tab={tab} />
     </div>
   );
 }
@@ -553,7 +546,7 @@ function ConfirmationCard({
         type="button"
         onClick={handleConfirm}
         disabled={!!overCap || enterMutation.isPending || (mode === "tickets" && infoQuery.isLoading)}
-        className="w-full bg-brand-ink text-brand-cream py-4 rounded-full text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-brand-gold transition-colors disabled:opacity-60"
+        className="w-full bg-brand-oxblood text-brand-cream py-4 rounded-full text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-brand-gold transition-colors disabled:opacity-60"
       >
         {enterMutation.isPending ? "Confirming…" : "Confirm Entry"}
       </button>

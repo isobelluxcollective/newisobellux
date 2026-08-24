@@ -66,7 +66,7 @@ function CommunityPage() {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 bg-brand-ink text-brand-cream px-8 py-3 rounded-full hover:bg-brand-gold transition-colors text-xs uppercase tracking-[0.2em] font-medium"
+            className="inline-flex items-center gap-2 bg-brand-oxblood text-brand-cream px-8 py-3 rounded-full hover:bg-brand-gold transition-colors text-xs uppercase tracking-[0.2em] font-medium"
           >
             <Instagram className="size-4" />
             Follow @{INSTAGRAM_HANDLE}

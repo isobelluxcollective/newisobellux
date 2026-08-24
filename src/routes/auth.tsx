@@ -299,7 +299,7 @@ function AuthPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-brand-ink text-brand-cream py-4 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors disabled:opacity-60"
+              className="w-full bg-brand-oxblood text-brand-cream py-4 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors disabled:opacity-60"
             >
               {submitting ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}
             </button>

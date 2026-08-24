@@ -63,7 +63,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             to="/enter"
-            className="bg-brand-ink text-brand-cream px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-xs uppercase tracking-[0.18em] font-semibold hover:bg-brand-gold transition-colors duration-300"
+            className="bg-brand-oxblood text-brand-cream px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-xs uppercase tracking-[0.18em] font-semibold hover:bg-brand-gold transition-colors duration-300"
           >
             Enter Now
           </Link>
@@ -169,7 +169,7 @@ export function SiteHeader() {
               <a
                 href="/members"
                 onClick={() => setOpen(false)}
-                className="flex-1 rounded-full bg-brand-ink py-3.5 text-center text-xs font-bold uppercase tracking-[0.16em] text-brand-cream hover:bg-brand-gold transition-colors"
+                className="flex-1 rounded-full bg-brand-oxblood py-3.5 text-center text-xs font-bold uppercase tracking-[0.16em] text-brand-cream hover:bg-brand-gold transition-colors"
               >
                 My Account
               </a>
@@ -187,7 +187,7 @@ export function SiteHeader() {
                 to="/auth"
                 search={{ redirect: "/enter", mode: "signup" }}
                 onClick={() => setOpen(false)}
-                className="flex-1 rounded-full bg-brand-ink py-3.5 text-center text-xs font-bold uppercase tracking-[0.16em] text-brand-cream hover:bg-brand-gold transition-colors"
+                className="flex-1 rounded-full bg-brand-oxblood py-3.5 text-center text-xs font-bold uppercase tracking-[0.16em] text-brand-cream hover:bg-brand-gold transition-colors"
               >
                 Sign Up
               </Link>

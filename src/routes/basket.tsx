@@ -104,7 +104,7 @@ function BasketStepper({
                 <Link
                   to="/basket"
                   search={searchable}
-                  className="flex size-8 items-center justify-center rounded-full bg-brand-ink text-sm font-bold text-brand-cream"
+                  className="flex size-8 items-center justify-center rounded-full bg-brand-oxblood text-sm font-bold text-brand-cream"
                   aria-label={`Go to step ${s.n}: ${s.label}`}
                 >
                   {s.n}
@@ -114,7 +114,7 @@ function BasketStepper({
                   className={cn(
                     "flex size-8 items-center justify-center rounded-full text-sm font-bold",
                     active
-                      ? "bg-brand-ink text-brand-cream"
+                      ? "bg-brand-oxblood text-brand-cream"
                       : "border border-[#cfcfcf] bg-white text-[#9a9a9a]",
                   )}
                   aria-current={active ? "step" : undefined}
@@ -156,7 +156,7 @@ function StepOneDraw({
       <Link
         to="/basket"
         search={{ raffle: raffle.id, plan, mode, step: 2 }}
-        className="block w-full rounded-full bg-brand-ink py-4 text-center text-base font-bold text-brand-cream shadow-sm transition-[filter] hover:brightness-95"
+        className="block w-full rounded-full bg-brand-oxblood py-4 text-center text-base font-bold text-brand-cream shadow-sm transition-colors hover:bg-brand-gold"
       >
         Next
       </Link>
@@ -242,7 +242,7 @@ function StepTwoSummary({
       <Link
         to="/enter"
         search={{ raffle: raffle.id, plan, mode, confirm: true }}
-        className="block w-full rounded-full bg-brand-ink py-4 text-center text-base font-bold text-brand-cream shadow-sm transition-[filter] hover:brightness-95"
+        className="block w-full rounded-full bg-brand-oxblood py-4 text-center text-base font-bold text-brand-cream shadow-sm transition-colors hover:bg-brand-gold"
       >
         Checkout
       </Link>
@@ -285,7 +285,7 @@ function BasketItemCard({
           width={1200}
           height={640}
         />
-        <span className="absolute right-3 top-3 rounded bg-brand-ink px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-cream">
+        <span className="absolute right-3 top-3 rounded bg-brand-oxblood px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-cream">
           Luxury Draw
         </span>
       </div>

@@ -5,8 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /* Isobels brand palette
- * navy   #153D75  wordmark, headings, primary buttons, accents
- * cream  #F8F0E6  primary background
+ * oxblood   #5E2430  desire, luxury, primary CTAs
+ * noir      #1F1B16  authority, text, dark sections
+ * ivory     #F1E6D4  calm premium background
+ * champagne #C9A86F  aspiration, labels, accents
  */
 
 @theme inline {
@@ -45,6 +47,7 @@
   --color-brand-cream: var(--brand-cream);
   --color-brand-ink: var(--brand-ink);
   --color-brand-navy: var(--brand-ink);
+  --color-brand-oxblood: var(--brand-oxblood);
   --color-brand-gold: var(--brand-gold);
   --color-brand-taupe: var(--brand-taupe);
 
@@ -56,51 +59,52 @@
   --radius: 0.25rem;
 
   /* Brand */
-  --brand-cream: #f8f0e6;
-  --brand-ink: #153d75;
-  --brand-gold: #1e4f94;
-  --brand-taupe: #ede3d6;
+  --brand-oxblood: #5e2430;
+  --brand-ink: #1f1b16;
+  --brand-cream: #f1e6d4;
+  --brand-gold: #c9a86f;
+  --brand-taupe: #e8ddd0;
 
   /* Semantic mapping */
   --background: var(--brand-cream);
   --foreground: var(--brand-ink);
-  --card: #ffffff;
+  --card: #fffdf9;
   --card-foreground: var(--brand-ink);
-  --popover: #ffffff;
+  --popover: #fffdf9;
   --popover-foreground: var(--brand-ink);
-  --primary: var(--brand-ink);
+  --primary: var(--brand-oxblood);
   --primary-foreground: var(--brand-cream);
   --secondary: var(--brand-taupe);
   --secondary-foreground: var(--brand-ink);
   --muted: var(--brand-taupe);
   --muted-foreground: color-mix(in srgb, var(--brand-ink) 55%, transparent);
   --accent: var(--brand-gold);
-  --accent-foreground: var(--brand-cream);
+  --accent-foreground: var(--brand-ink);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
   --border: color-mix(in srgb, var(--brand-ink) 14%, transparent);
   --input: color-mix(in srgb, var(--brand-ink) 18%, transparent);
-  --ring: var(--brand-ink);
+  --ring: var(--brand-oxblood);
 }
 
 .dark {
   --background: var(--brand-ink);
   --foreground: var(--brand-cream);
-  --card: #0f2d56;
+  --card: #2a2520;
   --card-foreground: var(--brand-cream);
-  --popover: #0f2d56;
+  --popover: #2a2520;
   --popover-foreground: var(--brand-cream);
-  --primary: var(--brand-cream);
-  --primary-foreground: var(--brand-ink);
-  --secondary: #0f2d56;
+  --primary: var(--brand-oxblood);
+  --primary-foreground: var(--brand-cream);
+  --secondary: #2a2520;
   --secondary-foreground: var(--brand-cream);
-  --muted: #0f2d56;
+  --muted: #2a2520;
   --muted-foreground: color-mix(in srgb, var(--brand-cream) 70%, transparent);
-  --accent: var(--brand-cream);
+  --accent: var(--brand-gold);
   --accent-foreground: var(--brand-ink);
   --border: color-mix(in srgb, var(--brand-cream) 14%, transparent);
   --input: color-mix(in srgb, var(--brand-cream) 18%, transparent);
-  --ring: var(--brand-cream);
+  --ring: var(--brand-gold);
 }
 
 @layer base {

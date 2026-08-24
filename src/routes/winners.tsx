@@ -88,7 +88,7 @@ function WinnersPage() {
           </p>
           <Link
             to="/enter"
-            className="inline-block bg-brand-ink text-brand-cream px-10 py-5 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors"
+            className="inline-block bg-brand-oxblood text-brand-cream px-10 py-5 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors"
           >
             Enter the Current Draw
           </Link>

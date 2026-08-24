@@ -70,7 +70,7 @@ function AuthCallbackPage() {
           <button
             type="button"
             onClick={() => navigate({ to: "/auth", search: { redirect: next, mode: "signin" } })}
-            className="rounded-full bg-brand-ink px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-cream hover:bg-brand-gold transition-colors"
+            className="rounded-full bg-brand-oxblood px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-cream hover:bg-brand-gold transition-colors"
           >
             Back to sign in
           </button>

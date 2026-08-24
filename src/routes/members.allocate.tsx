@@ -100,7 +100,7 @@ function AllocatePage() {
         </div>
 
         {welcome === 1 && (
-          <div className="mb-8 bg-brand-ink text-brand-cream px-6 py-4 text-sm text-center rounded-sm">
+          <div className="mb-8 bg-brand-oxblood text-brand-cream px-6 py-4 text-sm text-center rounded-sm">
             Payment received. Choose how to split your {balance} entries below.
           </div>
         )}
@@ -112,7 +112,7 @@ function AllocatePage() {
             </p>
             <Link
               to="/enter"
-              className="inline-block rounded-full bg-brand-ink px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-cream hover:bg-brand-gold transition-colors"
+              className="inline-block rounded-full bg-brand-oxblood px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-cream hover:bg-brand-gold transition-colors"
             >
               View entry options
             </Link>
@@ -187,7 +187,7 @@ function AllocatePage() {
               type="button"
               disabled={allocatedTotal !== balance || mutation.isPending}
               onClick={() => mutation.mutate()}
-              className="w-full rounded-full bg-brand-ink py-4 text-xs uppercase tracking-[0.2em] font-bold text-brand-cream hover:bg-brand-gold transition-colors disabled:opacity-60"
+              className="w-full rounded-full bg-brand-oxblood py-4 text-xs uppercase tracking-[0.2em] font-bold text-brand-cream hover:bg-brand-gold transition-colors disabled:opacity-60"
             >
               {mutation.isPending ? "Saving…" : "Confirm allocation"}
             </button>

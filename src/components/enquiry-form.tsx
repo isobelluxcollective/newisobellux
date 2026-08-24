@@ -124,7 +124,7 @@ export function EnquiryForm({ kind, submitLabel }: Props) {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-brand-ink text-brand-cream rounded-full py-4 text-xs uppercase tracking-[0.2em] font-medium hover:bg-brand-gold transition-colors disabled:opacity-60"
+        className="w-full bg-brand-oxblood text-brand-cream rounded-full py-4 text-xs uppercase tracking-[0.2em] font-medium hover:bg-brand-gold transition-colors disabled:opacity-60"
       >
         {submitting ? "Sending…" : submitLabel}
       </button>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import aboutCraft from "@/assets/about-craft.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -50,31 +50,29 @@ function AboutPage() {
           />
           <div className="space-y-5 text-brand-ink/70 leading-relaxed text-base">
             <p>
-              Growing up, Isobel had an eye for the extraordinary — the kind of pieces that
-              stopped you in your tracks in a boutique window. The Hermès Kelly. The Chanel Classic
-              Flap. The Cartier Love Bracelet. She didn&apos;t just admire them. She understood them —
-              the craft, the heritage, the meaning behind owning something built to outlast a
-              lifetime.
+              Isobel has always had an eye for the extraordinary: the kind of pieces that stop you
+              in your tracks in a boutique window. The Hermès Kelly. The Chanel Classic Flap. The
+              Cartier Love Bracelet. She didn&apos;t just admire them. She understood them, the
+              craft, the heritage, the meaning behind owning something built to outlast a lifetime.
             </p>
             <p>
-              But like most women, she watched those pieces remain just out of reach. Not because
-              she didn&apos;t work hard enough. Not because she didn&apos;t deserve them. Simply because
-              the world of luxury had always been built for the few.
+              But like most, she watched those pieces stay just out of reach. Not because she
+              hadn&apos;t worked hard enough, and not because she didn&apos;t deserve them. Simply
+              because luxury had always been built for the few.
+            </p>
+            <p className="font-medium text-brand-ink">What if that changed?</p>
+            <p>
+              Isobels: not just a business, but a belief. That the most beautiful things in the
+              world shouldn&apos;t be reserved for the wealthiest handful, and that everyone who
+              has ever pressed their face to a boutique window and walked away deserves a real
+              chance.
             </p>
             <p>
-              Isobels exists to change that. Each draw sources a single, independently authenticated
-              luxury piece from the world&apos;s leading houses, then opens it up to everyone from £5
-              a ticket. One beautiful object. One winner. A real chance.
-            </p>
-            <p>
-              Every entry carries a unique, verifiable number. Every draw is independently overseen.
-              And every draw includes a free postal entry route, because no one should be locked
-              out of the chance to win.
-            </p>
-            <p>
-              Isobel is the face and heart of everything we do. You&apos;ll find her introducing every
-              draw on our social media — sharing the story of each piece, where it came from, why
-              it matters, and why you should have a chance to own it.
+              Each draw, we source and independently authenticate a single exceptional piece from
+              the world&apos;s leading luxury houses, from Chanel to Cartier, and open it up to
+              everyone, from just £5 a ticket. One winner. One extraordinary piece. Every draw runs
+              with complete transparency, every entry carries its own verifiable number, and a free
+              postal entry route means no purchase is ever necessary to take part.
             </p>
           </div>
         </div>
@@ -133,31 +131,6 @@ function AboutPage() {
                 <p className="text-sm text-brand-cream/70 leading-relaxed">{v.d}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3 — Winners */}
-      <section className="py-24 bg-brand-cream">
-        <div className="container mx-auto px-6 max-w-3xl text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-6">
-            Our Winners
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl italic text-brand-ink mb-8">
-            Every draw creates a winner.
-          </h2>
-          <p className="text-base text-brand-ink/70 leading-relaxed max-w-2xl mx-auto">
-            But what it also creates is a community of people who believe in the same thing — that
-            beautiful things should be for everyone. Our winners aren't just lucky. They're
-            members. They entered, they believed, and it happened. We celebrate every single one.
-          </p>
-          <div className="mt-10">
-            <Link
-              to="/community"
-              className="inline-block border border-brand-ink text-brand-ink px-10 py-4 text-xs uppercase tracking-widest font-bold rounded-full hover:bg-brand-ink hover:text-brand-cream transition-colors"
-            >
-              Meet Our Winners
-            </Link>
           </div>
         </div>
       </section>

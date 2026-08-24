@@ -71,7 +71,7 @@ function Card({ r }: { r: Raffle }) {
           <Link
             to="/enter"
             search={{ raffle: r.id }}
-            className="w-full max-w-[200px] text-center bg-brand-ink text-brand-cream px-6 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-brand-gold transition-colors"
+            className="w-full max-w-[200px] text-center bg-brand-oxblood text-brand-cream px-6 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-brand-gold transition-colors"
           >
             Enter Now
           </Link>

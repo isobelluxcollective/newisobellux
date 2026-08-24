@@ -76,7 +76,7 @@ function MembersPage() {
             <h1 className="font-serif text-5xl md:text-6xl italic text-brand-ink">
               Welcome back, {firstName}
             </h1>
-            <div className="inline-flex items-center gap-2 bg-brand-ink text-brand-cream px-5 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-bold">
+            <div className="inline-flex items-center gap-2 bg-brand-oxblood text-brand-cream px-5 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-bold">
               {balance} ticket{balance === 1 ? "" : "s"}
               {expiry && <span className="text-brand-cream/60 normal-case tracking-normal text-[11px]">· expires {expiry}</span>}
             </div>
@@ -106,7 +106,7 @@ function MembersPage() {
           <div className="mb-8 text-center">
             <Link
               to="/members/allocate"
-              className="inline-block rounded-full border border-brand-ink px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-ink hover:bg-brand-ink hover:text-brand-cream transition-colors"
+              className="inline-block rounded-full border border-brand-ink px-8 py-3 text-xs uppercase tracking-widest font-bold text-brand-ink hover:bg-brand-oxblood hover:text-brand-cream hover:border-brand-oxblood transition-colors"
             >
               Allocate subscription entries
             </Link>
@@ -226,7 +226,7 @@ function MembersPage() {
 function Banner({ children, tone }: { children: React.ReactNode; tone: "success" | "warn" | "muted" }) {
   const cls =
     tone === "success"
-      ? "bg-brand-ink text-brand-cream"
+      ? "bg-brand-oxblood text-brand-cream"
       : tone === "warn"
         ? "bg-brand-gold/20 text-brand-ink border border-brand-gold/40"
         : "bg-white text-brand-ink/80 border border-brand-taupe";

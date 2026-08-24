@@ -88,7 +88,7 @@ function RaffleDetailPage() {
             <Link
               to="/enter"
               search={{ raffle: r.id }}
-              className="block text-center bg-brand-ink text-brand-cream px-10 py-5 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors"
+              className="block text-center bg-brand-oxblood text-brand-cream px-10 py-5 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors"
             >
               Enter Now
             </Link>

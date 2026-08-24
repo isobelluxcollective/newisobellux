@@ -76,21 +76,6 @@ function HomePage() {
         </section>
       )}
 
-      {/* Recent winners — before How it Works */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
-          <h2 className="font-serif text-4xl italic text-brand-ink">Recent Winners</h2>
-          <Link
-            to="/winners"
-            className="inline-block mt-6 mb-12 text-xs uppercase tracking-[0.2em] font-bold border-b border-brand-ink pb-1"
-          >
-            View Archive
-          </Link>
-
-          <WinnersCarousel winners={pastWinners} />
-        </div>
-      </section>
-
       {/* How it works */}
       <section className="py-24 bg-brand-cream">
         <div className="container mx-auto px-6 max-w-7xl text-center">
@@ -98,7 +83,7 @@ function HomePage() {
           <p className="text-brand-ink/50 uppercase tracking-widest text-[11px] mb-16">
             Three steps to your next heirloom
           </p>
-          <div className="rounded-sm border border-brand-ink/15 bg-[#F5EBE0] p-8 md:p-12 lg:p-14 text-left md:text-center">
+          <div className="rounded-sm border border-brand-ink/15 bg-brand-taupe p-8 md:p-12 lg:p-14 text-left md:text-center">
             <div className="grid md:grid-cols-3 gap-10 lg:gap-14">
               {[
                 {
@@ -125,6 +110,24 @@ function HomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Recent winners */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-7xl text-center">
+          <h2 className="font-serif text-4xl italic text-brand-ink">Recent Winners</h2>
+          <p className="mt-4 text-base md:text-lg text-brand-ink/70 max-w-2xl mx-auto leading-relaxed">
+            Our aim is for every woman to own their dream luxury accessory
+          </p>
+          <Link
+            to="/winners"
+            className="inline-block mt-6 mb-12 text-xs uppercase tracking-[0.2em] font-bold border-b border-brand-ink pb-1"
+          >
+            View Archive
+          </Link>
+
+          <WinnersCarousel winners={pastWinners} />
         </div>
       </section>
 
@@ -170,27 +173,24 @@ function HeroSection({
           <CountdownPill countdown={c} size="lg" caption="Next draw in" />
         </div>
 
-        <div className="hero-fade-in hero-fade-in-2 mb-3 md:mb-4">
-          <p className="inline-block rounded-md bg-[#F8F0E6]/95 px-5 py-2 sm:px-7 sm:py-2.5 font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic tracking-tight text-brand-ink shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
-            Isobels
-          </p>
-        </div>
+        <p className="hero-fade-in hero-fade-in-2 mb-3 md:mb-4 font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+          Isobels
+        </p>
 
-        <h1 className="hero-fade-in hero-fade-in-3">
-          <span className="inline-block rounded-md bg-[#F8F0E6]/95 px-5 py-2.5 sm:px-7 sm:py-3 font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-ink shadow-[0_4px_24px_rgba(0,0,0,0.12)] max-w-3xl leading-[1.15]">
-            Your dream luxury, within reach.
-          </span>
+        <h1 className="hero-fade-in hero-fade-in-3 font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] max-w-3xl leading-[1.15]">
+          Your dream luxury, within reach.
         </h1>
 
-        <p className="hero-fade-in hero-fade-in-4 mt-5 md:mt-6 text-base sm:text-lg md:text-xl text-white/95 italic font-light max-w-xl drop-shadow-[0_1px_12px_rgba(0,0,0,0.35)]">
-          Designer handbags, jewellery &amp; couture from £5
+        <p className="hero-fade-in hero-fade-in-4 mt-5 md:mt-6 text-base sm:text-lg md:text-xl text-white/95 font-light max-w-2xl drop-shadow-[0_1px_12px_rgba(0,0,0,0.35)]">
+          Enter live draws to win iconic designer handbags and jewellery, independently
+          authenticated, from £5
         </p>
 
         <div className="hero-fade-in hero-fade-in-5 mt-8 md:mt-10">
           <Link
             to="/enter"
             search={enterSearch}
-            className="inline-flex items-center justify-center rounded-full bg-brand-cream px-10 py-4 text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-brand-ink shadow-[0_10px_28px_rgba(21,61,117,0.28)] transition-transform duration-300 hover:scale-[1.03] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="inline-flex items-center justify-center rounded-full bg-brand-cream px-10 py-4 text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-brand-ink shadow-[0_10px_28px_rgba(94,36,48,0.32)] transition-transform duration-300 hover:scale-[1.03] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Enter to win
           </Link>
