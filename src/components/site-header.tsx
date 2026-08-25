@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import logoNav from "@/assets/Logo_1-removebg-preview.png";
+import logoNav from "@/assets/Isobel_Logo__updated_-removebg-preview.png";
 
 const primaryLinks: Array<
   | { to: "/raffle" | "/community" | "/winners" | "/about"; label: string }

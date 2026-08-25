@@ -76,7 +76,7 @@ export function tierOrderFor(mode: "subscription" | "oneoff"): TierId[] {
 }
 
 export const SINGLE_PURCHASE_COPY =
-  "Buy tickets for this draw. Entries start from £5, with better value the more you buy in one go. All tickets bought here enter this draw only — they can't be moved or split across other live draws. The more tickets you hold in this draw, the greater your chances of winning it.";
+  "Buy tickets for this draw. Entries start from £5, with better value the more you buy in one go. All tickets bought here enter this draw only, they can't be moved or split across other live draws. The more tickets you hold in this draw, the greater your chances of winning it.";
 
 export const SUBSCRIPTION_COPY =
-  "Your monthly entries can be split across all currently live draws — up to three at a time. Adjust your allocation any time before a draw closes.";
+  "Your monthly entries can be split across all currently live draws, up to three at a time. Adjust your allocation any time before a draw closes.";

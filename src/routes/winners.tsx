@@ -25,15 +25,11 @@ function WinnersPage() {
     <>
       <section className="bg-white pt-20 md:pt-28 pb-16 text-center">
         <div className="container mx-auto px-6 max-w-3xl">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-semibold mb-6">
-            Real prizes · Real people
-          </p>
           <h1 className="font-serif text-5xl md:text-7xl italic text-brand-ink leading-[0.95] mb-6">
             Past Winners
           </h1>
           <p className="text-base text-brand-ink/70 leading-relaxed">
-            A small archive of the women who&apos;ve taken home an Isobels prize. With their
-            permission, we share their first names and the pieces they won.
+            Our aim is for every woman to own their dream luxury accessory
           </p>
         </div>
       </section>
@@ -80,12 +76,9 @@ function WinnersPage() {
 
       <section className="py-20 bg-white text-center border-t border-brand-ink/5">
         <div className="container mx-auto px-6 max-w-2xl">
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-ink mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl text-brand-ink mb-8">
             Your name could be next.
           </h2>
-          <p className="text-sm text-brand-ink/60 mb-8">
-            The current draw closes soon. Enter from £5 or subscribe for the best value.
-          </p>
           <Link
             to="/enter"
             className="inline-block bg-brand-oxblood text-brand-cream px-10 py-5 text-xs uppercase tracking-widest font-bold hover:bg-brand-gold transition-colors"
