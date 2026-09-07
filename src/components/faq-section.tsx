@@ -1,4 +1,4 @@
-import { faqs } from "@/lib/faqs";
+import { faqs as defaultFaqs } from "@/lib/faqs";
 import {
   Accordion,
   AccordionContent,
@@ -6,15 +6,21 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+type FaqItem = { q: string; a: string };
+
 export function FaqSection({
   id,
   showHeading = true,
   className = "py-24 bg-white",
+  items,
 }: {
   id?: string;
   showHeading?: boolean;
   className?: string;
+  items?: readonly FaqItem[];
 }) {
+  const faqs = items ?? defaultFaqs;
+
   return (
     <section id={id} className={className}>
       <div className="container mx-auto px-6 max-w-5xl lg:max-w-6xl">

@@ -52,6 +52,39 @@ export type Database = {
           },
         ]
       }
+      prelaunch_signups: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          marketing_consent: boolean
+          mobile: string
+          mobile_normalized: string
+          source: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          marketing_consent?: boolean
+          mobile: string
+          mobile_normalized: string
+          source?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          marketing_consent?: boolean
+          mobile?: string
+          mobile_normalized?: string
+          source?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

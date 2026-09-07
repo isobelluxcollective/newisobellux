@@ -12,20 +12,27 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WinnersRouteImport } from './routes/winners'
 import { Route as RaffleRouteImport } from './routes/raffle'
 import { Route as PublicRelationsRouteImport } from './routes/public-relations'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LaunchRouteImport } from './routes/launch'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as FaqsRouteImport } from './routes/faqs'
 import { Route as EnterRouteImport } from './routes/enter'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BasketRouteImport } from './routes/basket'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as RaffleIdRouteImport } from './routes/raffle.$id'
 import { Route as MembersAllocateRouteImport } from './routes/members.allocate'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const WinnersRoute = WinnersRouteImport.update({
@@ -43,6 +50,11 @@ const PublicRelationsRoute = PublicRelationsRouteImport.update({
   path: '/public-relations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MembersRoute = MembersRouteImport.update({
   id: '/members',
   path: '/members',
@@ -53,6 +65,16 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LaunchRoute = LaunchRouteImport.update({
+  id: '/launch',
+  path: '/launch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqsRoute = FaqsRouteImport.update({
   id: '/faqs',
   path: '/faqs',
@@ -61,6 +83,11 @@ const FaqsRoute = FaqsRouteImport.update({
 const EnterRoute = EnterRouteImport.update({
   id: '/enter',
   path: '/enter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -83,6 +110,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -92,6 +124,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const RaffleIdRoute = RaffleIdRouteImport.update({
   id: '/$id',
@@ -113,6 +150,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/callback',
   getParentRoute: () => AuthRoute,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -123,21 +165,28 @@ const ApiPublicPaymentsWebhookRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/basket': typeof BasketRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/enter': typeof EnterRoute
   '/faqs': typeof FaqsRoute
+  '/home': typeof HomeRoute
+  '/launch': typeof LaunchRoute
   '/login': typeof LoginRoute
   '/members': typeof MembersRouteWithChildren
+  '/privacy': typeof PrivacyRoute
   '/public-relations': typeof PublicRelationsRoute
   '/raffle': typeof RaffleRouteWithChildren
   '/winners': typeof WinnersRoute
+  '/admin/login': typeof AdminLoginRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/members/allocate': typeof MembersAllocateRoute
   '/raffle/$id': typeof RaffleIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -147,38 +196,51 @@ export interface FileRoutesByTo {
   '/basket': typeof BasketRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/enter': typeof EnterRoute
   '/faqs': typeof FaqsRoute
+  '/home': typeof HomeRoute
+  '/launch': typeof LaunchRoute
   '/login': typeof LoginRoute
   '/members': typeof MembersRouteWithChildren
+  '/privacy': typeof PrivacyRoute
   '/public-relations': typeof PublicRelationsRoute
   '/raffle': typeof RaffleRouteWithChildren
   '/winners': typeof WinnersRoute
+  '/admin/login': typeof AdminLoginRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/members/allocate': typeof MembersAllocateRoute
   '/raffle/$id': typeof RaffleIdRoute
+  '/admin': typeof AdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/basket': typeof BasketRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/enter': typeof EnterRoute
   '/faqs': typeof FaqsRoute
+  '/home': typeof HomeRoute
+  '/launch': typeof LaunchRoute
   '/login': typeof LoginRoute
   '/members': typeof MembersRouteWithChildren
+  '/privacy': typeof PrivacyRoute
   '/public-relations': typeof PublicRelationsRoute
   '/raffle': typeof RaffleRouteWithChildren
   '/winners': typeof WinnersRoute
+  '/admin/login': typeof AdminLoginRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/members/allocate': typeof MembersAllocateRoute
   '/raffle/$id': typeof RaffleIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
@@ -186,21 +248,28 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/auth'
     | '/basket'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/enter'
     | '/faqs'
+    | '/home'
+    | '/launch'
     | '/login'
     | '/members'
+    | '/privacy'
     | '/public-relations'
     | '/raffle'
     | '/winners'
+    | '/admin/login'
     | '/auth/callback'
     | '/checkout/return'
     | '/members/allocate'
     | '/raffle/$id'
+    | '/admin/'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -210,51 +279,69 @@ export interface FileRouteTypes {
     | '/basket'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/enter'
     | '/faqs'
+    | '/home'
+    | '/launch'
     | '/login'
     | '/members'
+    | '/privacy'
     | '/public-relations'
     | '/raffle'
     | '/winners'
+    | '/admin/login'
     | '/auth/callback'
     | '/checkout/return'
     | '/members/allocate'
     | '/raffle/$id'
+    | '/admin'
     | '/api/public/payments/webhook'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/auth'
     | '/basket'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/enter'
     | '/faqs'
+    | '/home'
+    | '/launch'
     | '/login'
     | '/members'
+    | '/privacy'
     | '/public-relations'
     | '/raffle'
     | '/winners'
+    | '/admin/login'
     | '/auth/callback'
     | '/checkout/return'
     | '/members/allocate'
     | '/raffle/$id'
+    | '/admin/'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   BasketRoute: typeof BasketRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   EnterRoute: typeof EnterRoute
   FaqsRoute: typeof FaqsRoute
+  HomeRoute: typeof HomeRoute
+  LaunchRoute: typeof LaunchRoute
   LoginRoute: typeof LoginRoute
   MembersRoute: typeof MembersRouteWithChildren
+  PrivacyRoute: typeof PrivacyRoute
   PublicRelationsRoute: typeof PublicRelationsRoute
   RaffleRoute: typeof RaffleRouteWithChildren
   WinnersRoute: typeof WinnersRoute
@@ -285,6 +372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRelationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/members': {
       id: '/members'
       path: '/members'
@@ -299,6 +393,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/launch': {
+      id: '/launch'
+      path: '/launch'
+      fullPath: '/launch'
+      preLoaderRoute: typeof LaunchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faqs': {
       id: '/faqs'
       path: '/faqs'
@@ -311,6 +419,13 @@ declare module '@tanstack/react-router' {
       path: '/enter'
       fullPath: '/enter'
       preLoaderRoute: typeof EnterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -341,6 +456,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -354,6 +476,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/raffle/$id': {
       id: '/raffle/$id'
@@ -383,6 +512,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -392,6 +528,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AdminRouteChildren {
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminLoginRoute: AdminLoginRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface AuthRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
@@ -428,14 +576,19 @@ const RaffleRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   BasketRoute: BasketRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   EnterRoute: EnterRoute,
   FaqsRoute: FaqsRoute,
+  HomeRoute: HomeRoute,
+  LaunchRoute: LaunchRoute,
   LoginRoute: LoginRoute,
   MembersRoute: MembersRouteWithChildren,
+  PrivacyRoute: PrivacyRoute,
   PublicRelationsRoute: PublicRelationsRoute,
   RaffleRoute: RaffleRouteWithChildren,
   WinnersRoute: WinnersRoute,
