@@ -7,11 +7,13 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  redirect,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { isPubliclyAllowedPath } from "@/lib/public-access";
 
 function NotFoundComponent() {
   return (
@@ -69,18 +71,23 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: ({ location }) => {
+    if (!isPubliclyAllowedPath(location.pathname)) {
+      throw redirect({ to: "/" });
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Isobels — Luxury Designer Draws for Women" },
+      { title: "Isobels: Win Luxury Designer Handbags & Jewellery" },
       {
         name: "description",
         content:
           "Enter live draws to win iconic designer handbags and jewellery, independently authenticated, from £5",
       },
       { name: "author", content: "Isobels Luxe Collective" },
-      { property: "og:title", content: "Isobels — Luxury Designer Draws for Women" },
+      { property: "og:title", content: "Isobels: Win Luxury Designer Handbags & Jewellery" },
       {
         property: "og:description",
         content:

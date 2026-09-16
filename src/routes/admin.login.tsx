@@ -16,8 +16,17 @@ export const Route = createFileRoute("/admin/login")({
   component: AdminLoginPage,
 });
 
+const ADMIN_EMAIL = "isobelluxcollective@gmail.com";
+
 const schema = z.object({
-  email: z.string().trim().email("Enter a valid email").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Enter a valid email")
+    .max(255)
+    .refine((v) => v.toLowerCase() === ADMIN_EMAIL, {
+      message: "Use the Isobels staff email to sign in",
+    }),
   password: z.string().min(1, "Password is required").max(72),
 });
 
@@ -31,21 +40,37 @@ function AdminLoginPage() {
   const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    if (loading || !user) return;
+    if (loading) return;
+
     let cancelled = false;
-    setChecking(true);
-    checkAdmin()
-      .then((res) => {
+
+    async function syncSession() {
+      if (!user) return;
+
+      // Stale session from another account (e.g. jam752575) — clear it so staff can sign in fresh
+      if ((user.email ?? "").toLowerCase() !== ADMIN_EMAIL) {
+        await supabase.auth.signOut();
+        if (!cancelled) {
+          setFormError(null);
+          setChecking(false);
+        }
+        return;
+      }
+
+      setChecking(true);
+      try {
+        const res = await checkAdmin();
         if (cancelled) return;
         if (res.isAdmin) navigate({ to: "/admin" });
-        else setFormError("This account does not have admin access.");
-      })
-      .catch(() => {
+        else setFormError("This account does not have admin access. Ask a developer to grant the admin role in Supabase.");
+      } catch {
         if (!cancelled) setFormError("Could not verify admin access.");
-      })
-      .finally(() => {
+      } finally {
         if (!cancelled) setChecking(false);
-      });
+      }
+    }
+
+    void syncSession();
     return () => {
       cancelled = true;
     };
@@ -123,10 +148,12 @@ function AdminLoginPage() {
                   id="admin-email"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  autoComplete="username"
                   required
+                  readOnly
+                  defaultValue={ADMIN_EMAIL}
                   maxLength={255}
-                  className="w-full rounded-md border border-brand-ink/15 px-4 py-3 text-sm focus:outline-none focus:border-brand-oxblood"
+                  className="w-full rounded-md border border-brand-ink/15 bg-brand-cream/40 px-4 py-3 text-sm text-brand-ink focus:outline-none"
                 />
                 {errors.email ? <p className="text-xs text-destructive mt-1">{errors.email}</p> : null}
               </div>
